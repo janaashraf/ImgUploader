@@ -82,7 +82,7 @@ app.MapPost("/upload", async (HttpContext context, ILogger<Program> logger) =>
 });
 
 
-app.MapGet("/pictureFile/{id}", async (HttpContext context) =>
+app.MapGet("/img/{id}", async (HttpContext context) =>
 {
     var id = context.Request.RouteValues["id"].ToString();
     var jsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images.json");
@@ -161,7 +161,7 @@ app.MapGet("/picture/{imageId}", async (HttpContext context) =>
                 <body>
             <h1>Image Details</h1>
             <h2>Title: {imageInfo.Title}</h2>
-    <img src='/pictureFile/{imageId}' alt='{imageInfo.Title}' width='400'>
+    <img src='/img/{imageId}' alt='{imageInfo.Title}' width='400'>
         </body>
             </html>";
     Console.WriteLine("im here"); /*"E:\ImageUploader\ImageUploader\bin\Debug\net7.0\uploads\00a95c9e-4636-47fd-9565-b36f6c968f36.png"*/
