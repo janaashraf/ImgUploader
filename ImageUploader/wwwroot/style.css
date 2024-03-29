@@ -1,0 +1,74 @@
+﻿body {
+    background-image: url("download.jpeg");
+}
+
+.container {
+    display: block;
+    top: 50vh;
+    left: 50%;
+    height: 100vh;
+    position: relative;
+}
+
+.form-container {
+    background-color: rgba(255, 255, 255, 0.379); /* Semi-transparent white background */
+    padding: 20px;
+    width: 40vw;
+    min-width: 230px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    height: 80%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+h1 {
+    color: #1565ba;
+    margin-top: 110px;
+    font-size: 40px;
+}
+/* Style for the file input */
+input[type="file"] {
+    display: inline-block;
+    background-color: #1565ba;
+    color: rgb(239, 235, 235);
+    padding: 13px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 20px;
+    margin-top: 50px;
+    width: 200px;
+}
+
+input[type="text"] {
+    margin-top: 50px;
+    width: 50%;
+    min-width: 150px;
+    height: 50px;
+    border-radius: 1px;
+    background-color: antiquewhite;
+}
+
+::placeholder {
+    font-size: 15px;
+}
+
+
+.custom-file-input {
+    display: inline-block;
+    background-color: #1565ba;
+    color: rgb(239, 235, 235);
+    padding: 12px 22px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 20px;
+    margin-top: 50px;
+}
+
+.submit-btn {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-style: none;
+    margin-top: 10px;
+}

@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Uploader</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="icons8-image-48.png" type="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+                <h1>Upload image</h1>
+                <input type="text" id="imgtitle" name="imgtitle" placeholder="Enter image title" required><br>
+                <input type="file" name="imgToUpload" id="imgToUpload" class="file-input" accept=".jpg, .jpeg, .png, .gif" required>
+                <button type="submit" class="submit-btn custom-file-input">Submit</button>
+            </form>
+        </div>
+    </div>
+
+ 
+</body>
+</html>
