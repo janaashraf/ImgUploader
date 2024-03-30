@@ -1,10 +1,6 @@
 using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
 var app = builder.Build();
 
 app.MapGet("/", async context =>
@@ -50,7 +46,7 @@ app.MapPost("/upload", async (HttpContext context, ILogger<Program> logger) =>
 
     // Save the uploaded image
     var filePath = Path.Combine(uploadDirectory, imageId + fileExtension); //path where the image will be saved /uploads/imgid.jpg
-    Console.WriteLine("path" + filePath);
+   
     using (var stream = new FileStream(filePath, FileMode.Create))
     {
         await file.CopyToAsync(stream);
@@ -77,12 +73,11 @@ app.MapPost("/upload", async (HttpContext context, ILogger<Program> logger) =>
     // Redirect to the page with unique ID
    
     context.Response.Redirect($"/picture/{imageId}");
-    logger.LogInformation($"Redirected to /picture/{imageId}");
 
 });
 
-
-app.MapGet("/pictureFile/{id}", async (HttpContext context) =>
+//endpoint for displaying the image
+app.MapGet("/img/{id}", async (HttpContext context) =>
 {
     var id = context.Request.RouteValues["id"].ToString();
     var jsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images.json");
@@ -121,24 +116,9 @@ app.MapGet("/pictureFile/{id}", async (HttpContext context) =>
     await using var stream = File.OpenRead(imagePath);
     await stream.CopyToAsync(context.Response.Body);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ //endpoint for displaying image details
 app.MapGet("/picture/{imageId}", async (HttpContext context) =>
 {
-    Console.WriteLine("Endpoint hit for path: " + context.Request.Path);
-
     var imageId = context.Request.RouteValues["imageId"].ToString();
     var jsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images.json");
     if (!File.Exists(jsonFilePath))
@@ -154,30 +134,45 @@ app.MapGet("/picture/{imageId}", async (HttpContext context) =>
         
         return Results.NotFound();
     }
-    Console.WriteLine(imageInfo.Title);
-
     var html = $@"
             <html>
+         <head>
+         
+             <style>
+                body {{
+                    font-family: Arial, sans-serif;
+                    background-color: #D3D3D3;
+                    margin: 0;
+                    padding: 0;
+                }}
+                h1, h2 {{
+                    margin-top : 3vh;
+                    color: #0096c7;
+                    text-align: center;
+                }}
+                img {{
+                    display: block;
+                    margin: 0 auto;
+                    max-width: 100%;
+                    height: auto;
+                }}
+               
+            </style>
+           
+        </head>
                 <body>
             <h1>Image Details</h1>
             <h2>Title: {imageInfo.Title}</h2>
-    <img src='/pictureFile/{imageId}' alt='{imageInfo.Title}' width='400'>
+    <img src='/img/{imageId}' alt='{imageInfo.Title}' width='400'>
         </body>
             </html>";
-    Console.WriteLine("im here"); /*"E:\ImageUploader\ImageUploader\bin\Debug\net7.0\uploads\00a95c9e-4636-47fd-9565-b36f6c968f36.png"*/
+   
     return Results.Content(html, "text/html");
    
 });
-
-
-
-
 app.Run();
-
-
 public class ImageInfo
 {
-
     public string? Id { get; set; }
     public string? Title { get; set; }
     public string? Imgpath { get; set; }
